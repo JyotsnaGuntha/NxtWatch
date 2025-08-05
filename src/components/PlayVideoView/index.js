@@ -1,8 +1,7 @@
 import {useState} from 'react'
 import ReactPlayer from 'react-player'
-import {AiOutlineLike, AiOutlineDislike} from 'react-icons/ai'
-import {BiListPlus} from 'react-icons/bi'
 import ThemeAndVideoContext from '../../context/ThemeAndVideoContext'
+
 
 import {
   VideoPlayer,
@@ -11,8 +10,6 @@ import {
   PlayVideoStatusContainer,
   PlayVideoDot,
   PlaySocialButtonsContainer,
-  SocialButton,
-  ButtonText,
   HrLine,
   ChannelImage,
   ChannelContainer,
@@ -23,20 +20,24 @@ import {
   BtnContainer,
 } from './styledComponents'
 
+
 const PlayVideoView = props => {
   const {videoDetails} = props
   const [isLiked, setIsLiked] = useState(false)
   const [isDisliked, setIsDisliked] = useState(false)
 
+
   const onClickLike = () => {
-    setIsLiked(prev => !prev)
+    setIsLiked(prevLiked => !prevLiked)
     setIsDisliked(false)
   }
 
+
   const onClickDislike = () => {
-    setIsDisliked(prev => !prev)
+    setIsDisliked(prevDisliked => !prevDisliked)
     setIsLiked(false)
   }
+
 
   return (
     <ThemeAndVideoContext.Consumer>
@@ -46,12 +47,17 @@ const PlayVideoView = props => {
         const likeColor = isLiked ? '#2563eb' : '#64748b'
         const dislikeColor = isDisliked ? '#2563eb' : '#64748b'
 
-        const isSaved = savedVideos.some(each => each.id === videoDetails.id)
+
+        const isSaved = savedVideos.some(
+          eachVideo => eachVideo.id === videoDetails.id,
+        )
         const saveColor = isSaved ? '#2563eb' : '#64748b'
+
 
         const onClickSave = () => {
           addVideo(videoDetails)
         }
+
 
         return (
           <VideoPlayer>
@@ -70,48 +76,29 @@ const PlayVideoView = props => {
                   <button
                     type="button"
                     onClick={onClickLike}
-                    style={{
-                      background: 'transparent',
-                      border: 'none',
-                      cursor: 'pointer',
-                    }}
                     data-testid="likeButton"
+                    style={{color: likeColor}}
                   >
-                    <AiOutlineLike size={25} color={likeColor} />
-                    <ButtonText color={likeColor}>Like</ButtonText>
+                    Like
                   </button>
                 </BtnContainer>
-
                 <BtnContainer>
                   <button
                     type="button"
                     onClick={onClickDislike}
-                    style={{
-                      background: 'transparent',
-                      border: 'none',
-                      cursor: 'pointer',
-                    }}
                     data-testid="dislikeButton"
+                    style={{color: dislikeColor}}
                   >
-                    <AiOutlineDislike size={25} color={dislikeColor} />
-                    <ButtonText color={dislikeColor}>Dislike</ButtonText>
+                    Dislike
                   </button>
                 </BtnContainer>
-
                 <BtnContainer>
                   <button
                     type="button"
                     onClick={onClickSave}
-                    style={{
-                      background: 'transparent',
-                      border: 'none',
-                      cursor: 'pointer',
-                    }}
+                    style={{color: saveColor}}
                   >
-                    <BiListPlus size={25} color={saveColor} />
-                    <ButtonText color={saveColor}>
-                      {isSaved ? 'Saved' : 'Save'}
-                    </ButtonText>
+                    {isSaved ? 'Saved' : 'Save'}
                   </button>
                 </BtnContainer>
               </PlaySocialButtonsContainer>
@@ -138,5 +125,6 @@ const PlayVideoView = props => {
     </ThemeAndVideoContext.Consumer>
   )
 }
+
 
 export default PlayVideoView
