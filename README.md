@@ -34,7 +34,7 @@ Copy‑paste these commands into your terminal:
 
 1️⃣ Clone the repository
 <br/>
-git clone https://github.com/JyotsnaGuntha/NxtWatch.git
+git clone [https://github.com/JyotsnaGuntha/NxtWatch.git](https://github.com/JyotsnaGuntha/NxtWatch.git)
 
 2️⃣ Navigate to the project folder
 <br/>
