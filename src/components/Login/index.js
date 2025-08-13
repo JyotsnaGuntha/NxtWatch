@@ -1,4 +1,3 @@
-
 import {Component} from 'react'
 import {Redirect} from 'react-router-dom'
 import Cookies from 'js-cookie'
@@ -50,7 +49,7 @@ class Login extends Component {
           id="username"
           value={username}
           onChange={this.onChangeUsername}
-          placeholder="Username"
+          placeholder="rahul"
         />
       </>
     )
@@ -67,7 +66,7 @@ class Login extends Component {
           id="password"
           value={password}
           onChange={this.onChangePassword}
-          placeholder="Password"
+          placeholder="rahul@2021"
         />
         <CheckboxContainer>
           <CheckboxInput

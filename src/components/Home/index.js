@@ -58,6 +58,7 @@ class Home extends Component {
     const response = await fetch(url, options)
     if (response.ok) {
       const data = await response.json()
+      // console.log(data)
       const updatedData = data.videos.map(eachVideo => ({
         id: eachVideo.id,
         title: eachVideo.title,
@@ -136,29 +137,26 @@ class Home extends Component {
               <Header />
               <NavigationBar />
               <HomeContainer data-testid="home" bgColor={bgColor}>
-                {bannerDisplay === 'flex' && (
-                  <BannerContainer data-testid="banner">
-                    <BannerLeftPart>
-                      <BannerImage
-                        src="https://assets.ccbp.in/frontend/react-js/nxt-watch-logo-light-theme-img.png"
-                        alt="nxt watch logo"
-                      />
-                      <BannerText>
-                        Buy Nxt Watch Premium prepaid plans with <br /> UPI
-                      </BannerText>
-                      <BannerButton type="button">GET IT NOW</BannerButton>
-                    </BannerLeftPart>
-                    <BannerRightPart>
-                      <BannerCloseButton
-                        data-testid="close"
-                        onClick={this.onCloseBanner}
-                      >
-                        <AiOutlineClose size={25} />
-                      </BannerCloseButton>
-                    </BannerRightPart>
-                  </BannerContainer>
-                )}
-
+                <BannerContainer data-testid="banner" display={display}>
+                  <BannerLeftPart>
+                    <BannerImage
+                      src="https://assets.ccbp.in/frontend/react-js/nxt-watch-logo-light-theme-img.png"
+                      alt="nxt watch logo"
+                    />
+                    <BannerText>
+                      Buy Nxt Watch Premium prepaid plans with <br /> UPI
+                    </BannerText>
+                    <BannerButton type="button">GET IT NOW</BannerButton>
+                  </BannerLeftPart>
+                  <BannerRightPart>
+                    <BannerCloseButton
+                      data-testid="close"
+                      onClick={this.onCloseBanner}
+                    >
+                      <AiOutlineClose size={25} />
+                    </BannerCloseButton>
+                  </BannerRightPart>
+                </BannerContainer>
                 <SearchContainer>
                   <SearchInput
                     type="search"
@@ -167,13 +165,12 @@ class Home extends Component {
                     onChange={this.onChangeInput}
                     color={textColor}
                   />
-                  <button
-                    type="button"
+                  <SearchIconContainer
                     data-testid="searchButton"
                     onClick={this.getSearchResults}
                   >
                     <AiOutlineSearch size={20} />
-                  </button>
+                  </SearchIconContainer>
                 </SearchContainer>
                 {this.renderHomeVideos()}
               </HomeContainer>

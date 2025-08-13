@@ -1,7 +1,8 @@
-import {useState} from 'react'
 import ReactPlayer from 'react-player'
+
 import {AiOutlineLike, AiOutlineDislike} from 'react-icons/ai'
 import {BiListPlus} from 'react-icons/bi'
+
 import ThemeAndVideoContext from '../../context/ThemeAndVideoContext'
 
 import {
@@ -24,30 +25,36 @@ import {
 } from './styledComponents'
 
 const PlayVideoView = props => {
-  const {videoDetails} = props
-  const [isLiked, setIsLiked] = useState(false)
-  const [isDisliked, setIsDisliked] = useState(false)
+  const {videoDetails, isLiked, isDisLiked, clickLiked, clickDisLiked} = props
+  // console.log(videoDetails)
 
   const onClickLike = () => {
-    setIsLiked(prev => !prev)
-    setIsDisliked(false)
+    clickLiked()
   }
 
   const onClickDislike = () => {
-    setIsDisliked(prev => !prev)
-    setIsLiked(false)
+    clickDisLiked()
   }
 
   return (
     <ThemeAndVideoContext.Consumer>
       {value => {
         const {isDarkTheme, addVideo, savedVideos} = value
-        const textColor = isDarkTheme ? '#ffffff' : '#231f20'
-        const likeColor = isLiked ? '#2563eb' : '#64748b'
-        const dislikeColor = isDisliked ? '#2563eb' : '#64748b'
+        // const bgColor = isDarkTheme ? '#181818' : '#f9f9f9'
+        const textColor = isDarkTheme ? '#64748b' : '#231f20'
+        const likeIconColor = isLiked ? '#2563eb' : '#64748b'
+        const dislikeIconColor = isDisLiked ? '#2563eb' : '#64748b'
+        let isSaved
+        const index = savedVideos.findIndex(
+          eachVideo => eachVideo.id === videoDetails.id,
+        )
+        if (index === -1) {
+          isSaved = false
+        } else {
+          isSaved = true
+        }
 
-        const isSaved = savedVideos.some(each => each.id === videoDetails.id)
-        const saveColor = isSaved ? '#2563eb' : '#64748b'
+        const saveIconColor = isSaved ? '#2563eb' : textColor
 
         const onClickSave = () => {
           addVideo(videoDetails)
@@ -62,57 +69,39 @@ const PlayVideoView = props => {
             <PlayVideoStatusContainer>
               <PlayVideoStatus color={textColor}>
                 {videoDetails.viewCount} views
-                <PlayVideoDot>&#8226;</PlayVideoDot>
+                <PlayVideoDot> &#8226; </PlayVideoDot>
                 {videoDetails.publishedAt}
               </PlayVideoStatus>
               <PlaySocialButtonsContainer>
                 <BtnContainer>
-                  <button
+                  <SocialButton
                     type="button"
+                    color={likeIconColor}
                     onClick={onClickLike}
-                    style={{
-                      background: 'transparent',
-                      border: 'none',
-                      cursor: 'pointer',
-                    }}
-                    data-testid="likeButton"
                   >
-                    <AiOutlineLike size={25} color={likeColor} />
-                    <ButtonText color={likeColor}>Like</ButtonText>
-                  </button>
+                    <AiOutlineLike size={25} />
+                    <ButtonText>Like</ButtonText>
+                  </SocialButton>
                 </BtnContainer>
-
                 <BtnContainer>
-                  <button
+                  <SocialButton
                     type="button"
+                    color={dislikeIconColor}
                     onClick={onClickDislike}
-                    style={{
-                      background: 'transparent',
-                      border: 'none',
-                      cursor: 'pointer',
-                    }}
-                    data-testid="dislikeButton"
                   >
-                    <AiOutlineDislike size={25} color={dislikeColor} />
-                    <ButtonText color={dislikeColor}>Dislike</ButtonText>
-                  </button>
+                    <AiOutlineDislike size={25} />
+                    <ButtonText>Dislike</ButtonText>
+                  </SocialButton>
                 </BtnContainer>
-
                 <BtnContainer>
-                  <button
+                  <SocialButton
                     type="button"
+                    color={saveIconColor}
                     onClick={onClickSave}
-                    style={{
-                      background: 'transparent',
-                      border: 'none',
-                      cursor: 'pointer',
-                    }}
                   >
-                    <BiListPlus size={25} color={saveColor} />
-                    <ButtonText color={saveColor}>
-                      {isSaved ? 'Saved' : 'Save'}
-                    </ButtonText>
-                  </button>
+                    <BiListPlus size={25} />
+                    <ButtonText>{isSaved ? 'Saved' : 'Save'}</ButtonText>
+                  </SocialButton>
                 </BtnContainer>
               </PlaySocialButtonsContainer>
             </PlayVideoStatusContainer>
