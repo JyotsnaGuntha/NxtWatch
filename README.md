@@ -33,15 +33,19 @@ It includes core features like video listing, trending sections, gaming videos, 
 Copy‑paste these commands into your terminal:
 
 1️⃣ Clone the repository
-git clone https://github.com/yourusername/nxt-watch-react.git
+<br/>
+git clone https://github.com/JyotsnaGuntha/NxtWatch.git
 
 2️⃣ Navigate to the project folder
-cd nxt-watch-react
+<br/>
+cd NxtWatch
 
 3️⃣ Install dependencies
+<br/>
 npm install
 
 4️⃣ Start development server
+<br/>
 npm start
 
 
